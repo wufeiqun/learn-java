@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included >
+    <property name="LOG_PATH" value="/data/logs/learn"/>
+    <property name="HISTORY_LOG_PATH" value="/data/logs/learn/history"/>
+
+    <appender name="SYSTEM_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/learn.system.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${HISTORY_LOG_PATH}/system/learn-%d{yyyy-MM-dd}.system.log</fileNamePattern>
+            <maxHistory>90</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <Pattern>%prefix %X{traceid} %X{traceUrl} %X{rpcid} pRpcid[%X{pRpcid}] %X{url} %.-1048000m \n</Pattern>
+        </encoder>
+    </appender>
+
+    <Logger name="learn.aop.WebLogAspect" level="INFO" additivity="false">
+        <appender-ref ref="SYSTEM_LOG"/>
+    </Logger>
+
+</included>

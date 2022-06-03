@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="learn.user.support.ExUserMapper">
+    <insert id="batchInsert">
+        insert into user
+        (account, name)
+        values
+        <foreach collection="list" item="user" index="index" separator=",">
+            (
+            #{user.account, jdbcType=VARCHAR},
+            #{user.name,jdbcType=VARCHAR}
+            )
+        </foreach>
+        ON DUPLICATE KEY UPDATE id = id
+    </insert>
+</mapper>

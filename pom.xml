@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cn.wufeiqun</groupId>
+    <artifactId>learn</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>learn-common</module>
+        <module>learn-site</module>
+        <module>learn-service</module>
+        <module>learn-biz</module>
+        <module>learn-job</module>
+        <module>learn-dao</module>
+    </modules>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.7</version>
+    </parent>
+    <properties>
+        <okhttp-version>4.9.3</okhttp-version>
+        <learn-version>1.0.0-SNAPSHOT</learn-version>
+        <mybatis-spring-boot-starter-version>2.2.2</mybatis-spring-boot-starter-version>
+        <mysql-connector-java-version>8.0.29</mysql-connector-java-version>
+        <pagehelper-spring-boot-starter-version>1.4.2</pagehelper-spring-boot-starter-version>
+        <fastjson-version>2.0.3</fastjson-version>
+        <hutool-version>5.8.0</hutool-version>
+        <guava-version>31.1-jre</guava-version>
+        <commons-lang3-version>3.12.0</commons-lang3-version>
+        <redisson-version>3.17.1</redisson-version>
+        <netty-version>4.1.77.Final</netty-version>
+    </properties>
+    <dependencyManagement>
+
+        <dependencies>
+            <dependency>
+                <groupId>cn.wufeiqun</groupId>
+                <artifactId>learn-common</artifactId>
+                <version>${learn-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.wufeiqun</groupId>
+                <artifactId>learn-biz</artifactId>
+                <version>${learn-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.wufeiqun</groupId>
+                <artifactId>learn-service</artifactId>
+                <version>${learn-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.wufeiqun</groupId>
+                <artifactId>learn-job</artifactId>
+                <version>${learn-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.wufeiqun</groupId>
+                <artifactId>learn-dao</artifactId>
+                <version>${learn-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.squareup.okhttp3</groupId>
+                <artifactId>okhttp</artifactId>
+                <version>${okhttp-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper-spring-boot-starter-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2-extension</artifactId>
+                <version>${fastjson-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson-version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-all</artifactId>
+                <version>${netty-version}</version>
+            </dependency>
+
+        </dependencies>
+
+    </dependencyManagement>
+
+<!--    <repositories>-->
+<!--    这里可以配置公司的私服的地址, 这样在打包机器上就可以优先使用私服的地址进行下载依赖-->
+<!--    </repositories>-->
+
+    <!--profiles-->
+    <profiles>
+        <profile>
+            <id>local</id>
+            <properties>
+                <profileActive>local</profileActive>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>beta</id>
+            <properties>
+                <profileActive>beta</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>pre</id>
+            <properties>
+                <profileActive>pre</profileActive>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <properties>
+                <profileActive>release</profileActive>
+            </properties>
+        </profile>
+    </profiles>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-source-plugin</artifactId>
+                <configuration>
+                    <attach>true</attach>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

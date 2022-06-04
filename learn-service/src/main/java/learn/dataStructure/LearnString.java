@@ -7,43 +7,40 @@ package learn.dataStructure;
 public class LearnString {
 
     /**
-     * 判断一个字符串是不是回文字符串
-     * 方法一: 中间分隔, 依次对比
+     * leeCode: 125
+     * 给定一个字符串，验证它是否是回文串，只考虑字母和数字字符，可以忽略字母的大小写。
+     *
+     * 说明：本题中，我们将空字符串定义为有效的回文串。
+     *
+     * 示例1:
+     *  输入: "A man, a plan, a canal: Panama"
+     *  输出: true
+     *  解释："amanaplanacanalpanama" 是回文串
+     *
+     * 示例2:
+     *  输入: "race a car"
+     *  输出: false
+     *  解释："raceacar" 不是回文串
      */
-    public static boolean isPalindrome_1(String s) {
-        if (s == null || s.equals("") || s.length()%2 != 0){
-            return false;
-        }
+    public static boolean isPalindrome(String s) {
+        String str = s.toUpperCase();
 
-        String[] array = s.split("");
+        int i = 0;int j = str.length()-1;
 
-        for (int i = 0; i < s.length()/2; i++) {
-            if (!array[i].equals(array[s.length()-1-i])) {
+        while(i < j){
+            if (!Character.isLetterOrDigit(str.charAt(i))){
+                i++;
+            }else if (!Character.isLetterOrDigit(str.charAt(j))){
+                j--;
+            }else if (str.charAt(i) != str.charAt(j)){
                 return false;
+            }else {
+                i++;
+                j--;
             }
         }
 
         return true;
-    }
-
-    /**
-     * 判断一个字符串是不是回文字符串
-     * 方法一: 中间分隔, 依次对比
-     */
-    public static boolean isPalindrome_2(String s) {
-        if (s == null || s.equals("") || s.length()%2 != 0){
-            return false;
-        }
-
-        StringBuilder sb = new StringBuilder();
-
-        String[] array = s.split("");
-
-        for (int i = s.length()-1; i >= 0; i--) {
-            sb.append(array[i]);
-        }
-
-        return sb.toString().equals(s);
     }
 
     public String breakPalindrome(String s) {
@@ -51,14 +48,8 @@ public class LearnString {
     }
 
     public static void main(String[] args) {
-        String abc ="ab   ccba";
-
-//        System.out.println(isPalindrome_1(abc));
-//        System.out.println(isPalindrome_2(abc));
-
-        char[] array = abc.toCharArray();
-//        System.out.println(array);
-        System.out.println('a' > 'b');
+        String abc ="ac, B,,,,,,,bC>>><<>?A>>";
+        System.out.println(isPalindrome(abc));
     }
 
 }

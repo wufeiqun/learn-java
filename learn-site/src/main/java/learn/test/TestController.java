@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * @author 吴飞群
@@ -18,6 +18,8 @@ import java.util.HashSet;
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
+
+    private List<String> list = new ArrayList<>();
 
     @Autowired
     private RedissonClient redissonClient;
@@ -63,8 +65,12 @@ public class TestController {
 
     @GetMapping("/userinfo")
     public String testUserInfo(){
-        log.info(testService.toString());
-        testService.test3();
+        if (list.size() == 0 ){
+            list.add("A");
+            System.out.println("加入A");
+        } else {
+            System.out.println(list);
+        }
         return "OK";
     }
 

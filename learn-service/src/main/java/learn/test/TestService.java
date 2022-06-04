@@ -1,6 +1,7 @@
 package learn.test;
 
 import com.alibaba.fastjson2.JSON;
+import learn.sort.ListNode;
 import learn.user.User;
 import learn.utils.BeanUtil;
 import learn.utils.RequestUtil;
@@ -32,30 +33,6 @@ public class TestService {
 
         redisTemplate.opsForValue().set("lock", "1");
     }
-    public void test1 (){
-        redissonClient.getBucket("abc").set("wufeiqun");
-    }
-
-    public static void test2 (){
-        //浅拷贝的问题, 任何一个修改了address对象以后, 所有引用的都会变化, 会导致意想不到的结果
-        Forms.User pm = new Forms.User("pm", "123", new Forms.Address("china"));
-        Forms.User copy = BeanUtil.deepCopy(pm, Forms.User.class);
-
-        System.out.println(JSON.toJSONString(pm));
-        System.out.println(JSON.toJSONString(copy));
-        System.out.println("**********************");
-        pm.getAddress().setCountry("us");
-        pm.setUsername("pm-update");
-        System.out.println(JSON.toJSONString(pm));
-        System.out.println(JSON.toJSONString(copy));
-        System.out.println(Forms.User.class.getClassLoader());
-
-    }
-
-    public void test3 (){
-        User user = RequestUtil.getCurrentUser();
-        log.info("user={}", JSON.toJSONString(user));
-    }
 
     public int[] moveZeros(int[] nums){
         if (nums == null || nums.length == 0){
@@ -77,9 +54,13 @@ public class TestService {
         return nums;
     }
 
-    public static void main(String[] args) {
-        String abc = "avxsdsds";
-        Integer l = abc.length();
+    public static void main(String[] args) throws InterruptedException {
+        String str = "a,b,c,,,";
+        String[] ary = str.split(",");
+// 预期大于 3，结果是 3
+        System.out.println(ary.length);
+        System.out.println(JSON.toJSONString(ary));
+        ListNode node = new ListNode(1);
     }
 
 }

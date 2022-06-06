@@ -83,7 +83,7 @@ public class LearnDynamicPlan {
     public static void main(String[] args) {
         LearnDynamicPlan obj = new LearnDynamicPlan();
         int[] coins = new int[]{1,2,5};
-        int target = 0;
+        int target = 5;
         System.out.println(obj.change2(coins, target));
         System.out.println(obj.change2_1(coins, target));
         System.out.println(obj.change2_2(coins, target));

@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import java.nio.channels.AsynchronousByteChannel;
+
 /**
  * @author 吴飞群
  * @createTime 2022/05/22
@@ -61,6 +63,7 @@ public class TestService {
         System.out.println(ary.length);
         System.out.println(JSON.toJSONString(ary));
         ListNode node = new ListNode(1);
+        System.out.println(System.getenv());
     }
 
 }

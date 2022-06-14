@@ -14,5 +14,7 @@ public class RedisUtil {
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    public void test () {}
+    public void test () {
+        System.out.println("from RedisUtil!");
+    }
 }

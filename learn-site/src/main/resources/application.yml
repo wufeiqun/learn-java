@@ -1,25 +1,21 @@
 server:
   port: 8080
-  servlet:
-    session:
-      timeout: 60
   tomcat:
-    max-threads: 800
     accesslog:
       enabled: false
       pattern: '%{X-Forwarded-For}i %l %u [%{yyyy-MM-dd HH:mm:ss:mmm}t] "%r" %s %b %D "%{HTTP_X_UP_CALLING_LINE_ID}i" "%{x-up-calling-line-id}i" "%{User-Agent}i"'
       directory: /data/logs/learn/access
-
-
-learn:
-  temp-path: /data/app/learn/temp/
+    mbeanregistry:
+      enabled: true
+    threads:
+      max: 500
 
 spring:
   profiles:
     # 为了接收系统变量, mvn -P {profile},
     active: @profileActive@
   application:
-    name: learn
+    name: learn-java
   jackson:
     serialization:
       write-dates-as-timestamps: true
@@ -34,5 +30,18 @@ pagehelper:
 mybatis:
   mapper-locations: classpath:mapper/**/*.xml
 
+management:
+  server:
+    port: 9001
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  metrics:
+    tags:
+      app: ${spring.application.name}
+
+learn:
+  temp-path: /data/app/learn/temp/
 
 

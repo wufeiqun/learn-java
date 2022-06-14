@@ -33,6 +33,7 @@
         <commons-lang3-version>3.12.0</commons-lang3-version>
         <redisson-version>3.17.1</redisson-version>
         <netty-version>4.1.77.Final</netty-version>
+        <micrometer-version>1.9.0</micrometer-version>
     </properties>
     <dependencyManagement>
 
@@ -132,6 +133,13 @@
                 <artifactId>netty-all</artifactId>
                 <version>${netty-version}</version>
             </dependency>
+            <!-- https://mvnrepository.com/artifact/io.micrometer/micrometer-registry-prometheus -->
+            <dependency>
+                <groupId>io.micrometer</groupId>
+                <artifactId>micrometer-registry-prometheus</artifactId>
+                <version>${micrometer-version}</version>
+            </dependency>
+
 
         </dependencies>
 

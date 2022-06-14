@@ -7,10 +7,16 @@ import learn.utils.BeanUtil;
 import learn.utils.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.BeanPostProcessor;
+import org.springframework.context.Lifecycle;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.nio.channels.AsynchronousByteChannel;
 
 /**
@@ -19,7 +25,7 @@ import java.nio.channels.AsynchronousByteChannel;
  */
 @Slf4j
 @Service
-public class TestService {
+public class TestService{
 
     private final RedisTemplate<String, Object>  redisTemplate;
     private final RedissonClient redissonClient;
@@ -31,9 +37,19 @@ public class TestService {
         this.redissonClient = redissonClient;
     }
 
-    public void test (){
 
-        redisTemplate.opsForValue().set("lock", "1");
+    public void test(String str) {
+        System.out.println("execute test method!");
+    }
+
+    @PostConstruct
+    public void doTask(){
+        System.out.println("this is done in post construct!");
+    }
+
+    @PreDestroy
+    public void doTask_1(){
+        System.out.println("this is done in pre destroyed!");
     }
 
     public int[] moveZeros(int[] nums){
@@ -57,13 +73,11 @@ public class TestService {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        String str = "a,b,c,,,";
-        String[] ary = str.split(",");
-// 预期大于 3，结果是 3
-        System.out.println(ary.length);
-        System.out.println(JSON.toJSONString(ary));
-        ListNode node = new ListNode(1);
-        System.out.println(System.getenv());
+        SingleObject singleObject = SingleObject.getInstance();
+        singleObject.sayHello();
+
     }
+
+
 
 }

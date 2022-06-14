@@ -3,7 +3,6 @@ package learn.aop;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import com.alibaba.fastjson2.JSON;
-import learn.pojo.CommonVo;
 import learn.pojo.WebLog;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
@@ -29,13 +28,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 统一日志处理切面
+ * 统一监控处理切面
  */
 @Aspect
 @Component
 @Slf4j
 @Order(1)
-public class WebLogAspect {
+public class MetricsAspect {
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.GetMapping)")
     public void webLog() {

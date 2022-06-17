@@ -40,6 +40,11 @@ management:
   metrics:
     tags:
       app: ${spring.application.name}
+    distribution:
+      slo: # yaml的写法真的是奇怪, 这样写才可以映射为普通写法的http.server.requests
+        http:
+          server:
+            requests: 50ms,100ms,200ms,300ms,400ms,500ms
 
 learn:
   temp-path: /data/app/learn/temp/

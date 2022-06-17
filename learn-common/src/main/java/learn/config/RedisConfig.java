@@ -1,6 +1,7 @@
 package learn.config;
 
 import com.alibaba.fastjson2.support.spring.data.redis.GenericFastJsonRedisSerializer;
+import lombok.extern.slf4j.Slf4j;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -19,6 +20,7 @@ import java.text.MessageFormat;
  * @author 吴飞群
  * @createTime 2022/05/22
  */
+@Slf4j
 @Configuration
 public class RedisConfig {
     @Value("${spring.redis.host}")
@@ -56,6 +58,7 @@ public class RedisConfig {
         singleServerConfig.setAddress(redisAddress);
         //分布式锁具有Watch Dog 自动延期机制 默认续30s 每隔30/3=10 秒续到30s
         config.setLockWatchdogTimeout(60*1000);
+        log.info("redisson created!");
         return Redisson.create(config);
     }
 }

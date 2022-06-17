@@ -1,23 +1,14 @@
 package learn.test;
 
-import com.alibaba.fastjson2.JSON;
-import learn.sort.ListNode;
-import learn.user.User;
-import learn.utils.BeanUtil;
-import learn.utils.RequestUtil;
+import io.micrometer.core.annotation.Timed;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.DisposableBean;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.context.Lifecycle;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.nio.channels.AsynchronousByteChannel;
 
 /**
  * @author 吴飞群
@@ -37,9 +28,16 @@ public class TestService{
         this.redissonClient = redissonClient;
     }
 
-
-    public void test(String str) {
+//    @Timed("custom-service-name")
+    @Timed
+    public String test() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("execute test method!");
+        return "Hello Sleep!";
     }
 
     @PostConstruct

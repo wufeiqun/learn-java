@@ -1,9 +1,12 @@
 package learn.utils;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
+import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.concurrent.*;
 
 /**
@@ -13,6 +16,7 @@ import java.util.concurrent.*;
 @Slf4j
 @Component
 public class AsyncUtil {
+
     private static final ExecutorService SHARE_THREAD_POOL;
 
     static {
@@ -27,6 +31,8 @@ public class AsyncUtil {
                 keepAliveTime, TimeUnit.HOURS,
                 new LinkedBlockingQueue<>(workQueueSize), namedThreadFactory, handler);
     }
+
+
 
     public void doTask(Runnable task) {
         SHARE_THREAD_POOL.submit(task);

@@ -33,7 +33,6 @@ import java.util.Map;
 @Aspect
 @Component
 @Slf4j
-@Order(1)
 public class MetricsAspect {
 
     @Pointcut("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.GetMapping)")

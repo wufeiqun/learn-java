@@ -29,13 +29,13 @@ public class TestService{
     }
 
 //    @Timed("custom-service-name")
-    @Timed
+//    @Timed
     public String test() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         System.out.println("execute test method!");
         return "Hello Sleep!";
     }

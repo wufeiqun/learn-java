@@ -1,11 +1,12 @@
 package learn.test;
 
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.DistributionSummary;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
+import io.prometheus.client.Collector;
 import learn.utils.AsyncUtil;
+import learn.utils.HttpRequestUtil;
 import learn.utils.SpringContextUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
@@ -15,14 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
-import java.util.function.Predicate;
 
 /**
  * @author 吴飞群
  * @createTime 2022/05/23
  */
 @Slf4j
-//@Timed(extraTags = { "region", "us-east-1" }, histogram = true)
+@Timed(extraTags = { "cloud", "aliyun" }, histogram = true)
 @RestController
 @RequestMapping("/api/test")
 public class TestController {
@@ -32,17 +32,21 @@ public class TestController {
     private final AsyncUtil asyncUtil;
 
     private final MeterRegistry meterRegistry;
+
+    private final HttpRequestUtil httpRequestUtil;
+
     @Autowired
-    public TestController(RedissonClient redissonClient, TestService testService, AsyncUtil asyncUtil, MeterRegistry meterRegistry) {
+    public TestController(RedissonClient redissonClient, TestService testService, AsyncUtil asyncUtil, MeterRegistry meterRegistry, HttpRequestUtil httpRequestUtil) {
         this.redissonClient = redissonClient;
         this.testService = testService;
         this.asyncUtil = asyncUtil;
         this.meterRegistry = meterRegistry;
+        this.httpRequestUtil = httpRequestUtil;
     }
 
     @GetMapping()
     public String test() {
-        return testService.test();
+        return "OK";
     }
 
     @GetMapping("/userinfo")

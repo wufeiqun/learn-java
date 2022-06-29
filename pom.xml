@@ -22,7 +22,7 @@
         <version>2.6.7</version>
     </parent>
     <properties>
-        <okhttp-version>4.9.3</okhttp-version>
+        <okhttp-version>4.10.0</okhttp-version>
         <learn-version>1.0.0-SNAPSHOT</learn-version>
         <mybatis-spring-boot-starter-version>2.2.2</mybatis-spring-boot-starter-version>
         <mysql-connector-java-version>8.0.29</mysql-connector-java-version>

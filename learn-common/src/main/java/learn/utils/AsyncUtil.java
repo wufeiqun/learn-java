@@ -2,8 +2,10 @@ package learn.utils;
 
 import cn.hutool.core.thread.ThreadFactoryBuilder;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.binder.jvm.ExecutorServiceMetrics;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -16,6 +18,9 @@ import java.util.concurrent.*;
 @Slf4j
 @Component
 public class AsyncUtil {
+
+    @Autowired
+    private MeterRegistry registry;
 
     private static final ExecutorService SHARE_THREAD_POOL;
 
@@ -30,9 +35,13 @@ public class AsyncUtil {
         SHARE_THREAD_POOL = new ThreadPoolExecutor(corePoolSize, maximumPoolSize,
                 keepAliveTime, TimeUnit.HOURS,
                 new LinkedBlockingQueue<>(workQueueSize), namedThreadFactory, handler);
+
     }
 
-
+    public AsyncUtil(MeterRegistry registry) {
+        this.registry = registry;
+        ExecutorServiceMetrics.monitor(registry, SHARE_THREAD_POOL, "learn-async-pool", Tags.of("custom-thread-key", "custom-thread-value"));
+    }
 
     public void doTask(Runnable task) {
         SHARE_THREAD_POOL.submit(task);
